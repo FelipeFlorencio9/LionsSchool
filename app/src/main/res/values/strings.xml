@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LionsSchool</string>
+    <string name="logo_description">Logo for Lions School</string>
+    <string name="greetings">Welcome to</string>
+    <string name="enterprise_name">Lions School</string>
+    <string name="test">Test</string>
+    <string name="app_description">Application for student control over school courses</string>
+    <string name="app_init">Get Started</string>
+    <string name="title_activity_course">CourseActivity</string>
 </resources>

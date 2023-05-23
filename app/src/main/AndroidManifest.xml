@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,6 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LionsSchool"
         tools:targetApi="31">
+        <activity
+            android:name=".CourseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_course"
+            android:theme="@style/Theme.LionsSchool" />
+        <activity
+            android:name=".Test1Activity"
+            android:exported="false"
+            android:label="@string/test"
+            android:theme="@style/Theme.LionsSchool" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

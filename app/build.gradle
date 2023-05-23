@@ -71,4 +71,7 @@ dependencies {
     //COIL (for Media)
     implementation 'io.coil-kt:coil-compose:2.3.0'
 
+    //Fonts
+    implementation "androidx.compose.ui:ui-text-google-fonts:1.4.3"
+
 }
