@@ -38,6 +38,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import br.senai.sp.jandira.lionsschool.components.Greetings
+import br.senai.sp.jandira.lionsschool.model.Course
+import br.senai.sp.jandira.lionsschool.model.CourseList
 import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
 
 class MainActivity : ComponentActivity() {
@@ -111,7 +113,6 @@ fun HomeScreen(
             onClick = {
                 val intent = Intent(context, CourseActivity::class.java)
                 context.startActivity(intent)
-
             }
         ) {
             Text(
