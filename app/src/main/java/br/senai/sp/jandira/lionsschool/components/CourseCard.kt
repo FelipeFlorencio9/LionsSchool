@@ -1,11 +1,14 @@
 package br.senai.sp.jandira.lionsschool.components
 
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.lionsschool.ui.theme.BlueCard
 import br.senai.sp.jandira.lionsschool.ui.theme.JuaRegular
+import java.lang.invoke.LambdaConversionException
 
 @Preview
 @Composable
@@ -23,24 +27,27 @@ fun CourseCardPreview() {
         "DS",
         2023,
         "Desenvolvimento de Sistemas",
-        20
-
-    )
+        20){ Log.i("calback function", "teste: testando callback") }
 }
 
+fun teste(){
+
+}
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CourseCard(
     sigla: String,
     dataConclusao: Int?,
     nomeCurso: String,
-    quantidadeAlunos: Int
+    quantidadeAlunos: Int,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .background(Color.Black, CircleShape)
-            .size(width = 200.dp, height = 280.dp),
+            .size(width = 200.dp, height = 280.dp)
+            .clickable { onClick() },
         shape = RoundedCornerShape(36.dp),
-
         backgroundColor = BlueCard
     ){
         Column (
@@ -66,7 +73,7 @@ fun CourseCard(
             }
             Spacer(modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .height(88.dp)
             )
             Text(
                 text = nomeCurso,
@@ -76,7 +83,7 @@ fun CourseCard(
             )
             Spacer(modifier = Modifier
                 .fillMaxWidth()
-                .height(20.dp)
+                .height(22.dp)
             )
             Text(
                 modifier = Modifier
@@ -84,7 +91,7 @@ fun CourseCard(
                 text = "$quantidadeAlunos Alunos",
                 color = Color.White,
                 fontFamily = JuaRegular,
-                fontSize = 20.sp
+                fontSize = 16.sp
             )
         }
 

@@ -2,10 +2,7 @@ package br.senai.sp.jandira.lionsschool.components
 
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +21,8 @@ import br.senai.sp.jandira.lionsschool.ui.theme.JuaRegular
 @Composable
 fun Profile(enterprise : String){
     Row(
-        verticalAlignment =Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
     ) {
         Image(
             modifier = Modifier

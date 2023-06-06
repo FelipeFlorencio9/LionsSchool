@@ -7,4 +7,5 @@
     <string name="app_description">Application for student control over school courses</string>
     <string name="app_init">Get Started</string>
     <string name="title_activity_course">CourseActivity</string>
+    <string name="title_activity_students_acitivity">StudentsAcitivity</string>
 </resources>
