@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitFactory {
 
-    private val URL_BASE = "https://school-lions.onrender.com/v1/lions-school/"
+    private val URL_BASE = "https://weak-gold-python-sari.cyclic.app//v1/lions-school/"
 
     private val retrofitFactory = Retrofit
         .Builder()

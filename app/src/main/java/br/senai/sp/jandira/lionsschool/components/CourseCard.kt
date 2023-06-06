@@ -1,6 +1,6 @@
 package br.senai.sp.jandira.lionsschool.components
 
-import android.content.Context
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -38,13 +38,13 @@ fun CourseCard(
     Card(
         modifier = Modifier
             .background(Color.Black, CircleShape)
-            .size(width = 220.dp, height = 300.dp),
+            .size(width = 200.dp, height = 280.dp),
         shape = RoundedCornerShape(36.dp),
 
         backgroundColor = BlueCard
     ){
         Column (
-            modifier = Modifier.padding(16.dp))
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 16.dp))
         {
             Row(
                 modifier = Modifier

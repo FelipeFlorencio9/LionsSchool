@@ -1,5 +1,7 @@
 package br.senai.sp.jandira.lionsschool.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,10 +18,11 @@ import br.senai.sp.jandira.lionsschool.ui.theme.YellowLions
 @Composable
 fun LionsYellow(text: String) {
     Text(
+        modifier = Modifier,
         text = text,
         color = YellowLions,
         fontFamily = JuaRegular,
-        fontSize = 60.sp
+        fontSize = 40.sp
     )
 }
 
@@ -53,5 +56,9 @@ fun LionsText(text: String) {
 @Preview
 @Composable
 fun LionsYellowPreview() {
-    LionsYellow(text = "School")
+    Column( verticalArrangement = Arrangement.Center) {
+        LionsWhite(text = "Lions")
+        LionsYellow(text = "School")
+    }
+
 }

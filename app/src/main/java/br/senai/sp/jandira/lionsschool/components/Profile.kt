@@ -29,7 +29,7 @@ fun Profile(enterprise : String){
         Image(
             modifier = Modifier
                 .padding(end = 24.dp)
-                .size(width = 80.dp, height = 100.dp),
+                .size(width = 60.dp, height = 75.dp),
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo")
         Text(
