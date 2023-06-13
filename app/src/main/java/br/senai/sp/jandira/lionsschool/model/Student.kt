@@ -6,6 +6,6 @@ data class Student (
     val nome: String,
     val matricula: Number,
     val sexo: String,
-    val curso : List<Course>,
+    val curso : List<CourseStudent>,
     val status : String
 )
