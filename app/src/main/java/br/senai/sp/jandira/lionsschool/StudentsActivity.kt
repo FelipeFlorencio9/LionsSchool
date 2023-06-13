@@ -2,17 +2,12 @@ package br.senai.sp.jandira.lionsschool
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,6 +53,7 @@ class StudentsAcitivity : ComponentActivity() {
     }
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun StudentsFromCourse( 
     enterpriseName : String,
@@ -73,17 +69,27 @@ fun StudentsFromCourse(
                vertical = 40.dp,
                horizontal = 36.dp
            ),
-       verticalArrangement = Arrangement.SpaceBetween
    ) {
        Profile(
            enterpriseName,
 
        )
-       CardInfo(
-           sigla,
-           nome,
-           carga
-       )
+       Column(
+           verticalArrangement = Arrangement.Center
+       ) {
+           Spacer(modifier = Modifier
+               .fillMaxWidth()
+               .height(33.dp))
+           CardInfo(
+               sigla,
+               nome,
+               carga
+           )
+       }
+       Chip(onClick = { Log.i("teste", "StudentsFromCourse: teste")}) {
+           Text(text = "Hello")
+       }
+
    }
 
 }

@@ -27,7 +27,8 @@ fun CardInfo(
     Card(
         modifier = Modifier
             .background(Color.Black, CircleShape)
-            .size(width = 296.dp, height = 192.dp),
+            .fillMaxWidth()
+            .height(192.dp),
         shape = RoundedCornerShape(36.dp),
         backgroundColor = BlueCard
     ){
