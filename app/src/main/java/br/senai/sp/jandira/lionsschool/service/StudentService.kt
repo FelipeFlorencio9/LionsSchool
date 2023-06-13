@@ -18,7 +18,7 @@ interface StudentService {
     fun getStudent(@Path("id") id: Int)  : Call<Student>
 
     @GET("alunos")
-    fun getStudentsFromCourse(@Query("sigla") sigla: String): Call<StudentList>
+    fun getStudentsFromCourse(@Query("curso") siglaDoCurso: String): Call<StudentList>
 
 
 }
