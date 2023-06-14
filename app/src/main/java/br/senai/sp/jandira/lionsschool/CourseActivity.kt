@@ -1,7 +1,6 @@
 package br.senai.sp.jandira.lionsschool
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -121,7 +120,7 @@ fun CourseScreen () {
                     quantidadeAlunos = 22){
 
                     Log.i("Id na montagem do card", "${it.id}")
-                    val intent = Intent(context, StudentsAcitivity::class.java)
+                    val intent = Intent(context, StudentsActivity::class.java)
                     intent.putExtra("id",it.id.toInt())
                     intent.putExtra("sigla", it.sigla)
                     intent.putExtra("nome",  it.nome)
