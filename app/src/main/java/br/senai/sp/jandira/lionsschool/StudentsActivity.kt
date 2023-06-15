@@ -1,11 +1,11 @@
 package br.senai.sp.jandira.lionsschool
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,32 +18,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.lionsschool.components.CardInfo
-import br.senai.sp.jandira.lionsschool.components.LionsButton
 import br.senai.sp.jandira.lionsschool.components.LionsWhite
 import br.senai.sp.jandira.lionsschool.components.Profile
+import br.senai.sp.jandira.lionsschool.model.Discipline
 import br.senai.sp.jandira.lionsschool.model.Student
 import br.senai.sp.jandira.lionsschool.model.StudentList
-import br.senai.sp.jandira.lionsschool.model.StudentsFromCourseList
 import br.senai.sp.jandira.lionsschool.repository.StudentsRepository
 import br.senai.sp.jandira.lionsschool.service.RetrofitFactory
-import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
-import br.senai.sp.jandira.lionsschool.ui.theme.JuaRegular
-import br.senai.sp.jandira.lionsschool.ui.theme.LionsSchoolTheme
-import br.senai.sp.jandira.lionsschool.ui.theme.YellowLions
+import br.senai.sp.jandira.lionsschool.ui.theme.*
 import coil.compose.AsyncImage
-import okhttp3.internal.filterList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 class StudentsActivity : ComponentActivity() {
@@ -111,6 +103,28 @@ fun getDisciplinesAverage( student: Student) : Double {
 
     return porcentagemDaMediaDasDisciplinas
 }
+
+fun getDisciplinesMaximum(student: Student): Discipline? {
+    var curso = student.curso[0]
+    return curso.disciplinas.maxByOrNull { it.media }
+}
+fun getDisciplinesMinimum(student: Student): Discipline? {
+    var curso = student.curso[0]
+    return curso.disciplinas.minByOrNull { it.media }
+}
+fun getDisciplineItemColor (disciplineNote : Int) : Color {
+    var decisiveNote = 80
+    var examNote = 60
+
+    return if(disciplineNote >= decisiveNote){
+        Approved
+    } else if (disciplineNote in examNote until decisiveNote){
+        return InExam
+    } else {
+        Disapproved
+    }
+}
+
 @Composable
 fun StudentsFromCourse( 
     enterpriseName : String,
@@ -184,7 +198,24 @@ fun StudentsFromCourse(
                    colors = ButtonDefaults.buttonColors(
                        backgroundColor = YellowLions
                    ),
-                   onClick = { }
+                   onClick = {
+                       val call = RetrofitFactory().getStudentService().getStudentsFromCourse(sigla, "Cursando")
+
+                       call.enqueue(object : Callback<StudentList> {
+                           override fun onResponse(
+                               call: Call<StudentList>,
+                               response: Response<StudentList>
+                           ) {
+                               students = response.body()!!.alunos
+                               Log.i("Load All Students", "result: $students")
+
+                           }
+
+                           override fun onFailure(call: Call<StudentList>, t: Throwable) {
+                               Log.i("Load All Students", "onFailure: Error get students from courses ${t.message}")
+                           }
+                       })
+                   }
                ) {
                    Text(
                        text = "Studing",
@@ -201,7 +232,24 @@ fun StudentsFromCourse(
                    colors = ButtonDefaults.buttonColors(
                        backgroundColor = YellowLions
                    ),
-                   onClick = { }
+                   onClick = {
+                       val call = RetrofitFactory().getStudentService().getStudentsFromCourse(sigla, "Finalizado")
+
+                       call.enqueue(object : Callback<StudentList> {
+                           override fun onResponse(
+                               call: Call<StudentList>,
+                               response: Response<StudentList>
+                           ) {
+                               students = response.body()!!.alunos
+                               Log.i("Load All Students", "result: $students")
+
+                           }
+
+                           override fun onFailure(call: Call<StudentList>, t: Throwable) {
+                               Log.i("Load All Students", "onFailure: Error get students from courses ${t.message}")
+                           }
+                       })
+                   }
                ) {
                    Text(
                        text = "Finished",
@@ -223,11 +271,17 @@ fun StudentsFromCourse(
         ){
             items(students){
                 var media = getDisciplinesAverage(it)
-
+                var disciplinaComMaiorNota = getDisciplinesMaximum(it)
+                var disciplinaComMenorNota = getDisciplinesMinimum(it)
 
                 Card(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .clickable {
+                            val intent = Intent(context, StudentActivity::class.java)
+                            intent.putExtra("matricula",it.matricula)
+                            context.startActivity(intent)
+                        },
                     backgroundColor = BlueLions,
                 ) {
                     Row (verticalAlignment = Alignment.CenterVertically){
@@ -252,7 +306,25 @@ fun StudentsFromCourse(
                         Column() {
                             LionsWhite(text = it.nome)
                             Row() {
-                                Text(text = "Maior Nota | Menor Nota")
+                                if (disciplinaComMaiorNota != null) {
+                                    Text(
+                                        text = disciplinaComMaiorNota.nome,
+                                        color = getDisciplineItemColor(disciplinaComMaiorNota.media),
+                                        fontSize = 8.sp
+                                    )
+                                }
+                                Text(
+                                    text = " | ",
+                                    color = Color.White,
+                                    fontSize = 8.sp
+                                )
+                                if (disciplinaComMenorNota != null) {
+                                    Text(
+                                        text = disciplinaComMenorNota.nome,
+                                        color = getDisciplineItemColor(disciplinaComMenorNota.media),
+                                        fontSize = 8.sp
+                                    )
+                                }
                             }
                         }
                         Column (modifier = Modifier
@@ -385,8 +457,7 @@ fun StudentsFromCourse(
 ////               call.enqueue(object : Callback<StudentList> {
 ////                   override fun onResponse(
 ////                       call: Call<StudentList>,
-////                       response: Response<StudentList>
-////                   ) {
+////                       response: Response<StudentList> ////                   ) {
 ////                       students = response.body()!!.alunos
 ////                       Log.i("Load All Students", "result: $students")
 ////

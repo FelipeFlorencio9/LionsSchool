@@ -26,9 +26,9 @@ class StudentsRepository {
                                 1200,
                                 2023,
                                 listOf<Discipline>(
-                                    Discipline("Hardware e Redes", 1200, 80, "Aprovado"),
-                                    Discipline("Programacao front end", 1200, 80, "Aprovado"),
-                                    Discipline("Programacao Back end", 1200, 80, "Aprovado"),)
+                                    Discipline("Hardware e Redes", 1200, 50, "Aprovado"),
+                                    Discipline("Programacao front end", 1200, 90, "Aprovado"),
+                                    Discipline("Programacao Back end", 1200, 70, "Aprovado"),)
                             )
                     ),
                     status = "Cursando"),
@@ -40,8 +40,8 @@ class StudentsRepository {
                     "f",
                     curso = listOf<CourseStudent>(
                         CourseStudent(nome = "Desenvolvimento", sigla = "DS", icone = "url", 1200, 2023, listOf<Discipline>(
-                            Discipline("Hardware e Redes", 1200, 80, "Aprovado"),
-                            Discipline("Programacao front end", 1200, 80, "Aprovado"),
+                            Discipline("Hardware e Redes", 1200, 60, "Aprovado"),
+                            Discipline("Programacao front end", 1200, 70, "Aprovado"),
                             Discipline("Programacao Back end", 1200, 80, "Aprovado"),)
                         )
                     )
@@ -55,9 +55,9 @@ class StudentsRepository {
                 "f",
                 curso = listOf<CourseStudent>(
                     CourseStudent(nome = "Desenvolvimento", sigla = "DS", icone = "url", 1200, 2023, listOf<Discipline>(
-                        Discipline("Hardware e Redes", 1200, 80, "Aprovado"),
-                        Discipline("Programacao front end", 1200, 80, "Aprovado"),
-                        Discipline("Programacao Back end", 1200, 80, "Aprovado"),)
+                        Discipline("Hardware e Redes", 1200, 50, "Aprovado"),
+                        Discipline("Programacao front end", 1200, 60, "Aprovado"),
+                        Discipline("Programacao Back end", 1200, 40, "Aprovado"),)
                     )
                 )
                 , status = "Cursando"),
