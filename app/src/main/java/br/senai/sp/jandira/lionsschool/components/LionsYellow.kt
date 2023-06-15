@@ -34,6 +34,16 @@ fun LionsWhite(text: String) {
         )
 }
 
+@Composable
+fun SectionTitle(text: String) {
+    Text(
+        text = text,
+        color = Color.White,
+        fontFamily = JuaRegular,
+        fontSize = 20.sp
+    )
+}
+
 
 @Composable
 fun ItemCard(text: String) {
@@ -57,6 +67,7 @@ fun LionsYellowPreview() {
     Column( verticalArrangement = Arrangement.Center) {
         LionsWhite(text = "Lions")
         LionsYellow(text = "School")
+        SectionTitle(text = "Section Title")
     }
 
 }
