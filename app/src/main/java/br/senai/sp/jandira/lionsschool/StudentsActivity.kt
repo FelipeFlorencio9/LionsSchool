@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +38,7 @@ import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
 import br.senai.sp.jandira.lionsschool.ui.theme.JuaRegular
 import br.senai.sp.jandira.lionsschool.ui.theme.LionsSchoolTheme
 import br.senai.sp.jandira.lionsschool.ui.theme.YellowLions
+import coil.compose.AsyncImage
 import okhttp3.internal.filterList
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,8 +53,25 @@ class StudentsActivity : ComponentActivity() {
         val nome = intent.getStringExtra("nome") ?: "Nome Default"
         val carga = intent.getIntExtra("carga", 1234)
 
-        
+        var allStudents = listOf<Student>()
         Log.i("pendurando id", "Extras : $id")
+
+        val call = RetrofitFactory().getStudentService().getStudentsFromCourse(sigla, null)
+
+                   call.enqueue(object : Callback<StudentList> {
+                       override fun onResponse(
+                           call: Call<StudentList>,
+                           response: Response<StudentList>
+                       ) {
+                           allStudents = response.body()!!.alunos
+                           Log.i("Load All Students", "result: $allStudents")
+
+                       }
+
+                       override fun onFailure(call: Call<StudentList>, t: Throwable) {
+                           Log.i("Load All Students", "onFailure: Error get students from courses ${t.message}")
+                       }
+                   })
         setContent {
             LionsSchoolTheme {
                 // A surface container using the 'background' color from the theme
@@ -63,7 +85,7 @@ class StudentsActivity : ComponentActivity() {
                             sigla,
                             nome,
                             carga,
-                            StudentsRepository.getStudents()
+                            allStudents
                         )
                     }
                 }
@@ -182,9 +204,52 @@ fun StudentsFromCourse(
             .height(40.dp))
 
         LazyColumn (modifier = Modifier
-            .padding(horizontal = 24.dp)){
+            .padding(horizontal = 24.dp)
+        ){
             items(students){
-                Text(text = it.nome)
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    backgroundColor = BlueLions,
+                ) {
+                    Row (verticalAlignment = Alignment.CenterVertically){
+                        Card(
+                            shape = CircleShape,
+                            modifier = Modifier
+                                .size(48.dp)
+                        ) {
+//                            Image(
+//                                painter = painterResource(id = R.drawable.ic_launcher_background),
+//                                contentDescription = "teste" )
+                            AsyncImage(
+                                model = it.foto,
+                                contentDescription = it.nome,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                            )
+                        }
+                        Spacer(modifier = Modifier
+                            .fillMaxHeight()
+                            .width(13.dp))
+                        Column() {
+                            LionsWhite(text = it.nome)
+                            Row() {
+                                Text(text = "Maior Nota | Menor Nota")
+                            }
+                        }
+                        Column (modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(),
+                            horizontalAlignment = Alignment.End
+                        ){
+                           LionsWhite(text = "20%")
+                        }
+                    }
+
+                }
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
             }
         }
 
