@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,11 +13,19 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.lionsschool.components.CardInfo
+import br.senai.sp.jandira.lionsschool.components.LionsWhite
+import br.senai.sp.jandira.lionsschool.components.Profile
+import br.senai.sp.jandira.lionsschool.components.StudentCardInfo
 import br.senai.sp.jandira.lionsschool.model.Discipline
 import br.senai.sp.jandira.lionsschool.model.Student
+import br.senai.sp.jandira.lionsschool.repository.StudentsRepository
 import br.senai.sp.jandira.lionsschool.service.RetrofitFactory
+import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
 import br.senai.sp.jandira.lionsschool.ui.theme.LionsSchoolTheme
 import retrofit2.Call
 import retrofit2.Response
@@ -75,71 +84,36 @@ fun StudentScreen(student: Student) {
         mutableStateOf(listOf<Discipline>())
     }
 
-    Column() {
-        Text(text = "Hello ${student.nome}!")
-        Text(text = "This is your matricula: ${student.matricula}!")
-        Text(text = "Here is your photo: ${student.foto}!")
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(24.dp))
-
-        Text(text = "Cursos:")
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(24.dp))
-
-
-        LazyColumn(){
-           items(student.curso){
-               Column() {
-                   Text(text = "Nome: ${it.nome}")
-                   Text(text = "Sigla: ${it.sigla}")
-                   Text(text = "Icone: ${it.icone}")
-                   Text(text = "Conclusão: ${it.conclusao}")
-                   Text(text = "Carga: ${it.carga}")
-                   Spacer(modifier = Modifier
-                       .fillMaxWidth()
-                       .height(24.dp))
-                   disciplinesFromCourse = it.disciplinas
-               }
-           }
-        }
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(24.dp))
-        Text(text = "Disciplinas: ")
-        LazyColumn(){
-            items(disciplinesFromCourse){
-
-                Text(text = "${it.nome}"
-                , fontSize = 24.sp)
-                Text(text = "Carga: ${it.carga}")
-                Text(text = "Média: ${it.media}")
-                Text(text = "Status: ${it.status}")
-                Spacer(modifier = Modifier
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BlueLions)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 33.dp, top = 40.dp)
+        ) {
+            Profile(enterprise = stringResource(id = R.string.enterprise_name))
+            Spacer(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .height(24.dp))
-
-
+                    .height(33.dp)
+            )
+            Column (){
+                StudentCardInfo(
+                    matricula = "${student.matricula}",
+                    nomeAluno = student.nome
+                )
             }
         }
-    }
-//               LazyColumn(){
-//                   items(it.disciplinas){
-//                       Column() {
-//                           Text(text = it.nome)
-//                           Text(text = it.carga.toString())
-//                           Text(text = it.status)
-//                           Text(text = it.media.toString())
-//                       }
-//
-//                   }
-//               }
-//           }
-//        }
-
 
     }
+}
 
 
-
+@Preview
+@Composable
+fun StudentScreenPreview() {
+    StudentScreen(StudentsRepository.getStudent())
+}

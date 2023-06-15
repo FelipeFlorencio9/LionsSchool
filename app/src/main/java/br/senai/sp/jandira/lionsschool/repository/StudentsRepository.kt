@@ -80,5 +80,29 @@ class StudentsRepository {
             )
 
         }
+        fun getStudent() : Student {
+            return  Student(
+                id = 1234,
+                foto = "teste",
+                "Giovana",
+                2001234561,
+                "F",
+                curso = listOf(
+                    CourseStudent(
+                        nome = "Desenvolvimento de Sistemas",
+                        sigla = "DS",
+                        icone = "url",
+                        1200,
+                        2023,
+                        listOf<Discipline>(
+                            Discipline("Hardware e Redes", 1200, 50, "Aprovado"),
+                            Discipline("Programacao front end", 1200, 90, "Aprovado"),
+                            Discipline("Programacao Back end", 1200, 70, "Exame"),
+                            Discipline("Banco De Dados", 1200, 70, "Reprovado")
+                        )
+                    )
+                ),
+                status = "Cursando")
+        }
     }
 }
