@@ -43,6 +43,8 @@ import okhttp3.internal.filterList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class StudentsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +97,20 @@ class StudentsActivity : ComponentActivity() {
 
 
 
+fun getDisciplinesAverage( student: Student) : Double {
+    var cursoAluno = student.curso[0]
+    var notas =  mutableListOf<Int>()
+    cursoAluno.disciplinas.forEach {
+            discipline -> notas.add(discipline.media)
+    }
+    var mediaDasDisciplinas = notas.average()
+    var valorNotaMaxima = 100
+    var porcentagemDaMediaDasDisciplinas =  (mediaDasDisciplinas * valorNotaMaxima) / 100
 
+    Log.i("Media", "StudentsFromCourse: ${student.nome} " + "Media : $porcentagemDaMediaDasDisciplinas%")
+
+    return porcentagemDaMediaDasDisciplinas
+}
 @Composable
 fun StudentsFromCourse( 
     enterpriseName : String,
@@ -207,6 +222,9 @@ fun StudentsFromCourse(
             .padding(horizontal = 24.dp)
         ){
             items(students){
+                var media = getDisciplinesAverage(it)
+
+
                 Card(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -242,7 +260,7 @@ fun StudentsFromCourse(
                             .padding(),
                             horizontalAlignment = Alignment.End
                         ){
-                           LionsWhite(text = "20%")
+                           LionsWhite(text = "${media.roundToInt()}%")
                         }
                     }
 

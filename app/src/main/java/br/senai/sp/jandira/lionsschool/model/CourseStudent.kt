@@ -7,4 +7,5 @@ data class CourseStudent (
     val carga : Int,
     val conclusao : Int?,
     val disciplinas : List<Discipline>
+    
 )
