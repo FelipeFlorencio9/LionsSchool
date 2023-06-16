@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.senai.sp.jandira.lionsschool.CourseActivity
+import br.senai.sp.jandira.lionsschool.views.CourseActivity
 import br.senai.sp.jandira.lionsschool.R
 import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
 import br.senai.sp.jandira.lionsschool.ui.theme.JuaRegular

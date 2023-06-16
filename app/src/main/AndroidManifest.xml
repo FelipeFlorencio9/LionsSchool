@@ -14,17 +14,17 @@
         android:theme="@style/Theme.LionsSchool"
         tools:targetApi="31">
         <activity
-            android:name=".StudentActivity"
+            android:name=".views.StudentActivity"
             android:exported="false"
             android:label="@string/title_activity_student"
             android:theme="@style/Theme.LionsSchool" />
         <activity
-            android:name=".StudentsActivity"
+            android:name=".views.StudentsActivity"
             android:exported="false"
             android:label="@string/title_activity_students_acitivity"
             android:theme="@style/Theme.LionsSchool" />
         <activity
-            android:name=".CourseActivity"
+            android:name=".views.CourseActivity"
             android:exported="false"
             android:label="@string/title_activity_course"
             android:theme="@style/Theme.LionsSchool" />

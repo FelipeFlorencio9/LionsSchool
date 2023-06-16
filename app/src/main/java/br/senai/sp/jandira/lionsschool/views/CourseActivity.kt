@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.lionsschool
+package br.senai.sp.jandira.lionsschool.views
 
 
 import android.content.Intent
@@ -112,7 +112,6 @@ fun CourseScreen () {
 
         LazyRow (){
             items(courses) {
-                var loadedCourses = LocalContext.current
                 CourseCard(
                     sigla = it.sigla,
                     dataConclusao = 2023,

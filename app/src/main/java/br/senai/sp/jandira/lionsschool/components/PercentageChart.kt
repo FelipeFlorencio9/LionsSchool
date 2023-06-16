@@ -17,27 +17,17 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.senai.sp.jandira.lionsschool.ui.theme.Approved
-import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
-import br.senai.sp.jandira.lionsschool.ui.theme.Disapproved
-import br.senai.sp.jandira.lionsschool.ui.theme.InExam
+import br.senai.sp.jandira.lionsschool.ui.theme.*
 
 
 @Composable
 fun PercentageChart() {
-    Column() {
-        Text(text = "Percentage Chart")
-    }
-}
 
-@Preview
-@Composable
-fun PercentageChartPreview() {
     Box(
         modifier = Modifier
             .size(width = 296.dp, height = 264.dp)
             .clip(RoundedCornerShape(24.dp))
-            .background(BlueLions)
+            .background(BackgroundComponent)
 
     ){
         Card(
@@ -47,13 +37,13 @@ fun PercentageChartPreview() {
             backgroundColor = Color.Cyan
         ) {
             Box(modifier = Modifier
-            .size(100.dp)
-            .offset(40.dp, 40.dp)){
-            Card(modifier = Modifier
-                .size(width = 88.dp, 80.dp)
-                .clip(RoundedCornerShape(100)),
-                backgroundColor = Disapproved
-            ){}
+                .size(100.dp)
+                .offset(40.dp, 40.dp)){
+                Card(modifier = Modifier
+                    .size(width = 88.dp, 80.dp)
+                    .clip(RoundedCornerShape(100)),
+                    backgroundColor = Disapproved
+                ){}
             }
             Box(modifier = Modifier
                 .size(100.dp)
@@ -86,4 +76,10 @@ fun PercentageChartPreview() {
 
         }
     }
+}
+
+@Preview
+@Composable
+fun PercentageChartPreview() {
+    PercentageChart()
 }

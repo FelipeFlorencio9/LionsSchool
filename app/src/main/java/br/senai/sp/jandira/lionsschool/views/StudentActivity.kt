@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.lionsschool
+package br.senai.sp.jandira.lionsschool.views
 
 import android.os.Bundle
 import android.util.Log
@@ -17,10 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.senai.sp.jandira.lionsschool.components.CardInfo
-import br.senai.sp.jandira.lionsschool.components.LionsWhite
-import br.senai.sp.jandira.lionsschool.components.Profile
-import br.senai.sp.jandira.lionsschool.components.StudentCardInfo
+import br.senai.sp.jandira.lionsschool.R
+import br.senai.sp.jandira.lionsschool.components.*
 import br.senai.sp.jandira.lionsschool.model.Discipline
 import br.senai.sp.jandira.lionsschool.model.Student
 import br.senai.sp.jandira.lionsschool.repository.StudentsRepository
@@ -70,7 +68,7 @@ class StudentActivity : ComponentActivity() {
 
                         }
                     })
-                    student?.let { StudentScreen(student = it) }
+                    student?.let { StudentScreen(student = it, disciplinesNotes =  it.curso[0].disciplinas) }
                 }
             }
         }
@@ -78,10 +76,10 @@ class StudentActivity : ComponentActivity() {
 }
 
 @Composable
-fun StudentScreen(student: Student) {
+fun StudentScreen(student: Student, disciplinesNotes : List<Discipline>) {
 
     var disciplinesFromCourse by remember {
-        mutableStateOf(listOf<Discipline>())
+        mutableStateOf(disciplinesNotes)
     }
 
     Column(
@@ -100,14 +98,69 @@ fun StudentScreen(student: Student) {
                     .fillMaxWidth()
                     .height(33.dp)
             )
+
             Column (){
                 StudentCardInfo(
                     matricula = "${student.matricula}",
                     nomeAluno = student.nome
                 )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp))
+//                LionsWhite(text = "Student Notes")
+//                Spacer(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(20.dp))
+//                PercentageChart()
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(40.dp))
+                LionsWhite(text = "Student Notes")
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp))
+                ColumnChart(disciplinesNotes)
             }
         }
 
+    }
+}
+
+fun setAbbreviationByDisciplineName(disciplineName : String) : String{
+    if(disciplineName == "Sistemas Operacionais"){
+        return "SOP"
+    } else if(disciplineName == "Introdução a Programação"){
+        return "INP"
+    } else if(disciplineName == "Linguagem de Marcação"){
+        return "LIM"
+    } else if (disciplineName == "Banco de Dados"){
+        return "BCD"
+    } else if (disciplineName == "Programação Web Back End"){
+        return "PWBE"
+    } else if ( disciplineName == "Programação Web Front End"){
+        return "PWFE"
+    } else if( disciplineName == "Hardware"){
+        return "HAR"
+    } else if( disciplineName == "Banco de Dados II"){
+        return "BCD2"
+    } else if( disciplineName == "Aplicações Móveis"){
+        return "BCD2"
+    } else if( disciplineName == "Projetos"){
+        return "PRJ"
+    } else if( disciplineName == "Introdução a Redes"){
+        return "INR"
+    } else if( disciplineName == "Introdução a Nuvem"){
+        return "INTN"
+    } else if( disciplineName == "Servições de Redes"){
+        return "SRVR"
+    } else if( disciplineName == "Cabeamento Estruturado"){
+        return "SRVR"
+    } else {
+        return "$disciplineName"
     }
 }
 
@@ -115,5 +168,5 @@ fun StudentScreen(student: Student) {
 @Preview
 @Composable
 fun StudentScreenPreview() {
-    StudentScreen(StudentsRepository.getStudent())
+    StudentScreen(StudentsRepository.getStudent(), StudentsRepository.getDisciplines())
 }

@@ -41,6 +41,7 @@ import br.senai.sp.jandira.lionsschool.components.Greetings
 import br.senai.sp.jandira.lionsschool.model.Course
 import br.senai.sp.jandira.lionsschool.model.CourseList
 import br.senai.sp.jandira.lionsschool.ui.theme.BlueLions
+import br.senai.sp.jandira.lionsschool.views.CourseActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

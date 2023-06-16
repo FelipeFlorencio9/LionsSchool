@@ -104,5 +104,13 @@ class StudentsRepository {
                 ),
                 status = "Cursando")
         }
+        fun getDisciplines() : List<Discipline>{
+            return listOf(
+                Discipline("Hardware", 1200, 50, "Aprovado"),
+                Discipline("Programacao front end", 1200, 90, "Aprovado"),
+                Discipline("Programacao Back end", 1200, 70, "Exame"),
+                Discipline("Banco De Dados", 1200, 70, "Reprovado")
+            )
+        }
     }
 }
